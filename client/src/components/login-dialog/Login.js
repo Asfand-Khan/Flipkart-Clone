@@ -69,29 +69,48 @@ const Text = styled(Typography)`
   margin-top: 10%;
   cursor: pointer;
 `;
+const accountInitialValues = {
+  login: {
+    view: "login",
+    heading: "Login",
+    subHeading: "Get access to your Orders, Wishlist and Recommendations",
+  },
+  signup: {
+    view: "signup",
+    heading: "Looks like you're new here!",
+    subHeading: "Sign up with your mobile number to get started",
+  },
+};
+
 const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
-  const accountInitialValues = {
-    login: {
-      view: "login",
-      heading: "Login",
-      subHeading: "Get access to your Orders, Wishlist and Recommendations",
-    },
-    signup: {
-      view: "signup",
-      heading: "Looks like you're new here!",
-      subHeading: "Sign up with your mobile number to get started",
-    },
-  };
+  
   const [account, toggleAccount] = useState(accountInitialValues.login);
+  const [user,setUser] = useState({
+    firstname:"",
+    lastname:"",
+    username:"",
+    email:"",
+    password:"",
+    contact:"",
+  });
+  
   const image =
     "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png";
-  const handleClose = () => {
+  
+    const handleClose = () => {
     setDialogIsOpen(false);
     toggleAccount(accountInitialValues.login);
   };
+  
   const handleToggle = (e) => {
     toggleAccount(accountInitialValues.signup);
   };
+
+  const handleInput=(e)=>{
+    setUser({...user,[e.target.name]:e.target.value});
+    console.log(user);
+  }
+  
   return (
     <Dialog
       open={dialogIsOpen}
@@ -154,31 +173,43 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
               label="Enter Firstname"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
+              onChange={(e)=>{handleInput(e)}}
+              name="firstname"
             />
             <TextField
               label="Enter Lastname"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
+              onChange={(e)=>{handleInput(e)}}
+              name="lastname"
             />
             <TextField
               label="Enter Username"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
+              onChange={(e)=>{handleInput(e)}}
+              name="username"
             />
             <TextField
               label="Enter Email"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
+              onChange={(e)=>{handleInput(e)}}
+              name="email"
             />
             <TextField
               label="Enter Password"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
+              onChange={(e)=>{handleInput(e)}}
+              name="password"
             />
             <TextField
               label="Enter Contact No."
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
+              onChange={(e)=>{handleInput(e)}}
+              name="contact"
             />
 
             <LoginButton variant="contained">Continue</LoginButton>

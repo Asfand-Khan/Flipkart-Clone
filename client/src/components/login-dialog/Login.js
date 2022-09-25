@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { userSignup } from "../../services/api";
 const Wrapper = styled(Box)`
   display: flex;
   height: 90vh;
@@ -111,7 +112,7 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
   }
   
   const handleSignup=(user)=>{
-    console.log(user)
+    userSignup(user);
   }
   
   return (

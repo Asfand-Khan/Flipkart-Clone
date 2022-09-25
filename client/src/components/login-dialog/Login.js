@@ -97,7 +97,7 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
   const image =
     "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png";
   
-    const handleClose = () => {
+  const handleClose = () => {
     setDialogIsOpen(false);
     toggleAccount(accountInitialValues.login);
   };
@@ -108,7 +108,10 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
 
   const handleInput=(e)=>{
     setUser({...user,[e.target.name]:e.target.value});
-    console.log(user);
+  }
+  
+  const handleSignup=(user)=>{
+    console.log(user)
   }
   
   return (
@@ -212,7 +215,7 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
               name="contact"
             />
 
-            <LoginButton variant="contained">Continue</LoginButton>
+            <LoginButton variant="contained" onClick={()=>{handleSignup(user)}}>Continue</LoginButton>
             <Text
               sx={{ margin: "-15px" }}
               onClick={() => {

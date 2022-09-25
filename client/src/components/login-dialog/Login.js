@@ -103,7 +103,7 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
     toggleAccount(accountInitialValues.login);
   };
   
-  const handleToggle = (e) => {
+  const handleToggle = () => {
     toggleAccount(accountInitialValues.signup);
   };
 
@@ -111,8 +111,9 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
     setUser({...user,[e.target.name]:e.target.value});
   }
   
-  const handleSignup=(user)=>{
-    userSignup(user);
+  const handleSignup= async(user)=>{
+    const response = await userSignup(user);
+    console.log(response);
   }
   
   return (

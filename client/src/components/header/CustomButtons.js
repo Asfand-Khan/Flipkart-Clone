@@ -1,7 +1,9 @@
 import { Box, Button, styled, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Login from "../login-dialog/Login";
+import Profile from "./Profile";
 
 const ButtonsWrapper = styled(Box)`
   display: flex;
@@ -28,17 +30,21 @@ const CartWrapper = styled(Box)`
 `;
 const CustomButtons = () => {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
-
+  const { user } = useSelector((state) => state.auth);
   return (
     <ButtonsWrapper>
-      <CustomButton
-        variant="contained"
-        onClick={() => {
-          setDialogIsOpen(true);
-        }}
-      >
-        Login
-      </CustomButton>
+      {user ? (
+        <Profile name={user.message.firstname} />
+      ) : (
+        <CustomButton
+          variant="contained"
+          onClick={() => {
+            setDialogIsOpen(true);
+          }}
+        >
+          Login
+        </CustomButton>
+      )}
       <Typography>Become a Seller</Typography>
       <Typography>More</Typography>
       <CartWrapper>

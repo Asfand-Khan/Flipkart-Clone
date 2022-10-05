@@ -7,7 +7,12 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { userSignup } from "../../services/api";
+import { useDispatch } from "react-redux";
+import {
+  register,
+  reset,
+  login as loginFunc,
+} from "../../features/auth/authSlicer";
 const Wrapper = styled(Box)`
   display: flex;
   height: 90vh;
@@ -84,38 +89,64 @@ const accountInitialValues = {
 };
 
 const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
-  
   const [account, toggleAccount] = useState(accountInitialValues.login);
-  const [user,setUser] = useState({
-    firstname:"",
-    lastname:"",
-    username:"",
-    email:"",
-    password:"",
-    contact:"",
+  const [user, setUser] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: "",
+    password: "",
+    contact: "",
   });
-  
+
+  const [login, setLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = login;
+
   const image =
     "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png";
-  
+
+  const dispatch = useDispatch();
+
   const handleClose = () => {
     setDialogIsOpen(false);
     toggleAccount(accountInitialValues.login);
   };
-  
+
   const handleToggle = () => {
     toggleAccount(accountInitialValues.signup);
   };
 
-  const handleInput=(e)=>{
-    setUser({...user,[e.target.name]:e.target.value});
-  }
-  
-  const handleSignup= async(user)=>{
-    const response = await userSignup(user);
-    console.log(response);
-  }
-  
+  const handleInput = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = (e) => {
+    setLogin((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const loginUser = () => {
+    const userData = {
+      email,
+      password,
+    };
+    dispatch(loginFunc(userData));
+    reset();
+    handleClose();
+  };
+
+  const handleSignup = () => {
+    dispatch(register(user));
+    dispatch(reset());
+    handleClose();
+  };
+
   return (
     <Dialog
       open={dialogIsOpen}
@@ -141,11 +172,17 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
             <TextField
               label="Enter Email/Mobile No:"
               variant="standard"
+              name="email"
+              value={email}
+              onChange={(e) => handleLogin(e)}
               sx={{ width: "100%", marginBottom: "10px" }}
             />
             <TextField
               label="Enter Password"
               variant="standard"
+              name="password"
+              value={password}
+              onChange={(e) => handleLogin(e)}
               sx={{ width: "100%", marginBottom: "10px" }}
             />
             <Typography sx={{ marginTop: "20px", fontSize: "12px" }}>
@@ -159,7 +196,14 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
               </Box>
               .
             </Typography>
-            <LoginButton variant="contained">Login</LoginButton>
+            <LoginButton
+              onClick={() => {
+                loginUser();
+              }}
+              variant="contained"
+            >
+              Login
+            </LoginButton>
             <Typography sx={{ color: "#666666", fontSize: "14px" }}>
               OR
             </Typography>
@@ -178,46 +222,65 @@ const Login = ({ dialogIsOpen, setDialogIsOpen }) => {
               label="Enter Firstname"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
-              onChange={(e)=>{handleInput(e)}}
+              onChange={(e) => {
+                handleInput(e);
+              }}
               name="firstname"
             />
             <TextField
               label="Enter Lastname"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
-              onChange={(e)=>{handleInput(e)}}
+              onChange={(e) => {
+                handleInput(e);
+              }}
               name="lastname"
             />
             <TextField
               label="Enter Username"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
-              onChange={(e)=>{handleInput(e)}}
+              onChange={(e) => {
+                handleInput(e);
+              }}
               name="username"
             />
             <TextField
               label="Enter Email"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
-              onChange={(e)=>{handleInput(e)}}
+              onChange={(e) => {
+                handleInput(e);
+              }}
               name="email"
             />
             <TextField
               label="Enter Password"
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
-              onChange={(e)=>{handleInput(e)}}
+              onChange={(e) => {
+                handleInput(e);
+              }}
               name="password"
             />
             <TextField
               label="Enter Contact No."
               variant="standard"
               sx={{ width: "100%", marginBottom: "10px" }}
-              onChange={(e)=>{handleInput(e)}}
+              onChange={(e) => {
+                handleInput(e);
+              }}
               name="contact"
             />
 
-            <LoginButton variant="contained" onClick={()=>{handleSignup(user)}}>Continue</LoginButton>
+            <LoginButton
+              variant="contained"
+              onClick={() => {
+                handleSignup();
+              }}
+            >
+              Continue
+            </LoginButton>
             <Text
               sx={{ margin: "-15px" }}
               onClick={() => {

@@ -1,9 +1,16 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "../../features/product/productSlicer";
 import Navbar from "./navbar/Navbar";
 import Slider from "./Slider";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
   return (
     <>
       <Navbar />

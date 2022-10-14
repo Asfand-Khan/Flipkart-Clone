@@ -11,8 +11,17 @@ const fetchProducts = async () => {
   }
 };
 
+const getproductbyID = async (id) => {
+  const response = await axios.get(`${URL}/product/${id}`);
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
 const productServices = {
   fetchProducts,
+  getproductbyID,
 };
 
 export default productServices;

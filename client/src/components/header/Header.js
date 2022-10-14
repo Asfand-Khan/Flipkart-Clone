@@ -2,6 +2,7 @@ import React from "react";
 import { AppBar, Toolbar, styled, Typography, Box } from "@mui/material";
 import Search from "./Search";
 import CustomButtons from "./CustomButtons";
+import { Link } from "react-router-dom";
 
 const StyledAppBar = styled(AppBar)`
   height: 56px;
@@ -36,22 +37,26 @@ const Header = () => {
   const subURL =
     "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png";
   return (
-    <StyledAppBar>
-      <Wrapper>
-        <Box>
-          <Logo src={logoURL} alt="logo" />
-          <SubHeading>
-            Explore&nbsp;
-            <PlusBox component="span">
-              Plus&nbsp;
-              <img src={subURL} alt="sublogo" style={{ height: 10 }} />
-            </PlusBox>
-          </SubHeading>
-        </Box>
-        <Search />
-        <CustomButtons />
-      </Wrapper>
-    </StyledAppBar>
+    <>
+      <StyledAppBar>
+        <Wrapper>
+          <Box>
+            <Link to="/" style={{ color: "inherit" }}>
+              <Logo src={logoURL} alt="logo" />
+              <SubHeading>
+                Explore&nbsp;
+                <PlusBox component="span">
+                  Plus&nbsp;
+                  <img src={subURL} alt="sublogo" style={{ height: 10 }} />
+                </PlusBox>
+              </SubHeading>
+            </Link>
+          </Box>
+          <Search />
+          <CustomButtons />
+        </Wrapper>
+      </StyledAppBar>
+    </>
   );
 };
 

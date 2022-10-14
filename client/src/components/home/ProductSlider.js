@@ -1,6 +1,7 @@
 import { Box, Button, Divider, styled, Typography } from "@mui/material";
 import React from "react";
 import Carousel from "react-multi-carousel";
+import { Link } from "react-router-dom";
 
 const responsive = {
   desktop: {
@@ -42,7 +43,6 @@ const Card = styled(Box)`
 `;
 
 const ProductSlider = ({ products, title }) => {
-  console.log(products);
   return (
     <Box sx={{ background: "#ffffff", padding: "5px", margin: "10px 0px" }}>
       <CarouselHeader>
@@ -66,26 +66,28 @@ const ProductSlider = ({ products, title }) => {
       >
         {products.map((product, index) => (
           <Box key={index}>
-            <Card
-              sx={{
-                textAlign: "center",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Image src={product.url} alt="product" />
+            <Link to={`product/${product.id}`} style={{ color: "inherit" }}>
+              <Card
+                sx={{
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Image src={product.url} alt="product" />
 
-              <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
-                {product.title.shortTitle}
-              </Typography>
-              <Typography sx={{ fontSize: "10px", color: "green" }}>
-                {product.discount}
-              </Typography>
-              <Typography sx={{ fontSize: "12px", color: "#9a9696" }}>
-                Rs {product.price.cost} /-
-              </Typography>
-            </Card>
+                <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
+                  {product.title.shortTitle}
+                </Typography>
+                <Typography sx={{ fontSize: "10px", color: "green" }}>
+                  {product.discount}
+                </Typography>
+                <Typography sx={{ fontSize: "12px", color: "#9a9696" }}>
+                  Rs {product.price.cost} /-
+                </Typography>
+              </Card>
+            </Link>
           </Box>
         ))}
       </CarouselSlider>

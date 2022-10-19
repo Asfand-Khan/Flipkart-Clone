@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Login from "../login-dialog/Login";
 import Profile from "./Profile";
+import { Link } from "react-router-dom";
 
 const ButtonsWrapper = styled(Box)`
   display: flex;
@@ -25,12 +26,14 @@ const CustomButton = styled(Button)`
   box-shadow:none:
 `;
 
-const CartWrapper = styled(Box)`
+const CartWrapper = styled(Link)`
   display: flex;
+  color: inherit;
 `;
 const CustomButtons = () => {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
   return (
     <ButtonsWrapper>
       {user ? (
@@ -47,9 +50,11 @@ const CustomButtons = () => {
       )}
       <Typography>Become a Seller</Typography>
       <Typography>More</Typography>
-      <CartWrapper>
+      <CartWrapper to="/cart">
         <ShoppingCartIcon />
-        <Typography>Cart</Typography>
+        <Typography>
+          Cart <Box component="span">{cartItems.length}</Box>
+        </Typography>
       </CartWrapper>
       <Login dialogIsOpen={dialogIsOpen} setDialogIsOpen={setDialogIsOpen} />
     </ButtonsWrapper>

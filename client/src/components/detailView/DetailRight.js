@@ -1,5 +1,7 @@
 import { Box, Button, styled } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { add } from "../../features/cart/cartSlice";
 
 const Wrapper = styled(Box)`
   display: flex;
@@ -19,6 +21,11 @@ const CustomButton = styled(Button)`
   margin-top: 10px;
 `;
 const DetailRight = ({ product }) => {
+  const dispatch = useDispatch();
+  const handleAdd = () => {
+    dispatch(add(product));
+    // console.log(product);
+  };
   return (
     <Wrapper>
       <Box sx={{ width: "100%" }}>
@@ -28,6 +35,7 @@ const DetailRight = ({ product }) => {
         <CustomButton
           variant="contained"
           sx={{ background: "#ff9f00", borderRadius: "2px" }}
+          onClick={() => handleAdd()}
         >
           Add To Cart
         </CustomButton>
